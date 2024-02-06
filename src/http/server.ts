@@ -1,9 +1,13 @@
 import fastify from "fastify";
+import { PrismaClient } from "@prisma/client";
+import { z } from "zod";
+import { prisma } from "../lib/prisma";
+import { createPoll } from "./routes/create-poll";
+import { getPoll } from "./routes/get-poll";
 
 const app = fastify();
 
-app.get("/hello", () => {
-  return "hello";
-});
+app.register(createPoll);
+app.register(getPoll);
 
 app.listen({ port: 3333 }).then(() => console.log("HTTP server running!"));
